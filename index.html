@@ -1046,6 +1046,450 @@ a { text-decoration: none; color: inherit; }
   display: block;
   background: #000;
 }
+
+/* ===== MOBILE RESPONSIVE FIXES ===== */
+@media (max-width: 600px) {
+  html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  section {
+    scroll-margin-top: 72px;
+  }
+
+  #header {
+    padding: 10px 0;
+  }
+
+  .header-inner {
+    gap: 10px;
+  }
+
+  .header-cta .btn-primary {
+    padding: 9px 14px;
+    font-size: 13px;
+  }
+
+  #hero {
+    min-height: auto;
+    padding-top: 62px;
+    align-items: flex-start;
+  }
+
+  .hero-grid {
+    gap: 14px;
+    padding: 14px 0 30px;
+  }
+
+  .hero-content {
+    text-align: center;
+  }
+
+  .hero-tag {
+    margin-bottom: 8px;
+  }
+
+  .hero-title {
+    font-size: clamp(28px, 8vw, 36px);
+    line-height: 1.22;
+    margin-bottom: 10px;
+  }
+
+  .hero-sub {
+    max-width: none;
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 12px;
+  }
+
+  .hero-bullets {
+    gap: 8px;
+    margin-bottom: 14px;
+    text-align: right;
+  }
+
+  .hero-bullet {
+    align-items: flex-start;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .hero-rating {
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+
+  .hero-price-row {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    margin-bottom: 14px;
+  }
+
+  .hero-price {
+    font-size: 34px;
+  }
+
+  .hero-price-note {
+    flex-basis: 100%;
+    text-align: center;
+  }
+
+  .hero-ctas {
+    gap: 8px;
+  }
+
+  .hero-ctas .btn-primary,
+  .hero-ctas .btn-secondary,
+  .selector-add-btn,
+  #order-now-btn {
+    min-height: 52px;
+    white-space: normal;
+    line-height: 1.45;
+    padding: 14px 18px;
+  }
+
+  .hero-gallery {
+    width: 100%;
+    gap: 8px;
+  }
+
+  .hero-img-stage {
+    width: min(100%, 282px);
+    max-width: 282px;
+    aspect-ratio: 1 / 1;
+    margin: 0 auto;
+  }
+
+  .hero-shoe-stage {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #hero-main-img {
+    width: 100%;
+    max-height: 282px;
+    object-fit: contain;
+  }
+
+  .hero-thumbs {
+    width: 100%;
+    max-width: 282px;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .hero-thumb {
+    width: 64px;
+    height: 64px;
+    padding: 5px;
+    border-radius: 12px;
+    flex: 0 0 auto;
+  }
+
+  .hero-badge {
+    top: 6px;
+    left: 8px;
+    font-size: 10px;
+    padding: 5px 10px;
+  }
+
+  #trust-bar,
+  #media-section,
+  #product-selector,
+  #benefits,
+  #video-section,
+  #reviews,
+  #faq,
+  #checkout {
+    padding: 48px 0;
+  }
+
+  .trust-items {
+    gap: 14px 18px;
+    justify-content: flex-start;
+  }
+
+  .trust-item {
+    width: calc(50% - 9px);
+    align-items: flex-start;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .media-header,
+  .benefits-header,
+  .reviews-header,
+  .faq-header {
+    margin-bottom: 28px;
+  }
+
+  .media-title,
+  .benefits-title,
+  .reviews-title,
+  .faq-title {
+    font-size: 24px;
+    line-height: 1.35;
+  }
+
+  .media-sub {
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .media-grid {
+    gap: 12px;
+  }
+
+  .media-card,
+  .video-frame {
+    max-width: 100%;
+  }
+
+  .media-card.video-card {
+    width: min(100%, 340px);
+    justify-self: center;
+  }
+
+  .media-card video,
+  .video-frame video,
+  .media-card img,
+  .video-frame img {
+    max-width: 100%;
+  }
+
+  .selector-wrap {
+    gap: 24px;
+  }
+
+  .selector-stage {
+    min-height: 260px;
+  }
+
+  #active-shoe-img {
+    max-width: min(78vw, 280px);
+    max-height: 320px;
+    object-fit: contain;
+  }
+
+  .selector-controls {
+    text-align: center;
+  }
+
+  .selector-title {
+    font-size: 24px;
+  }
+
+  .selector-model-name {
+    margin-bottom: 22px;
+    font-size: 14px;
+  }
+
+  .model-options,
+  .size-options {
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+
+  .model-option {
+    width: 64px;
+    height: 64px;
+  }
+
+  .size-option {
+    width: 48px;
+    height: 48px;
+    font-size: 14px;
+  }
+
+  .benefits-grid,
+  .reviews-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .benefit-card,
+  .review-card {
+    padding: 22px 18px;
+  }
+
+  .video-section-inner {
+    gap: 24px;
+  }
+
+  .video-copy-title {
+    font-size: 26px;
+  }
+
+  .video-copy-sub,
+  .video-feature {
+    font-size: 14px;
+  }
+
+  .checkout-wrap {
+    gap: 24px;
+  }
+
+  .checkout-info-title {
+    font-size: 26px;
+  }
+
+  .checkout-info-sub,
+  .checkout-trust-item {
+    font-size: 14px;
+  }
+
+  .checkout-form-wrap {
+    width: 100%;
+    max-width: 100%;
+    padding: 20px 16px;
+    border-radius: 16px;
+  }
+
+  #checkout-form {
+    gap: 14px;
+  }
+
+  .form-input,
+  .form-select,
+  .form-textarea {
+    min-height: 48px;
+    font-size: 16px;
+    padding: 13px 14px;
+  }
+
+  .bundle-card {
+    padding: 13px;
+  }
+
+  .bundle-name {
+    font-size: 14px;
+  }
+
+  .bundle-note,
+  .tax-note {
+    font-size: 11px;
+  }
+
+  .bundle-extra {
+    padding: 12px;
+  }
+
+  .form-price-summary {
+    align-items: flex-start;
+    gap: 10px;
+    flex-direction: column;
+  }
+
+  .form-price-val {
+    width: 100%;
+    text-align: right;
+    font-size: 20px;
+  }
+
+  #mobile-sticky-cta {
+    padding: 9px 12px;
+  }
+
+  .mobile-sticky-inner {
+    gap: 10px;
+  }
+
+  .mobile-sticky-price {
+    font-size: 17px;
+    line-height: 1.2;
+    min-width: 92px;
+  }
+
+  .mobile-sticky-tax {
+    font-size: 9px;
+    line-height: 1.3;
+    margin-top: 2px;
+  }
+
+  .mobile-sticky-btn {
+    max-width: none;
+    min-height: 48px;
+    padding: 12px 14px;
+    font-size: 14px;
+    white-space: normal;
+  }
+
+  body {
+    padding-bottom: 72px;
+  }
+
+  #toast {
+    width: calc(100% - 32px);
+    white-space: normal;
+    text-align: center;
+    padding: 12px 18px;
+  }
+}
+
+@media (max-width: 430px) {
+  .container {
+    padding: 0 14px;
+  }
+
+  .logo {
+    font-size: 16px;
+  }
+
+  .logo-s {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+  }
+
+  .hero-title {
+    font-size: 27px;
+  }
+
+  .hero-img-stage {
+    width: min(100%, 252px);
+    max-width: 252px;
+  }
+
+  #hero-main-img {
+    max-height: 252px;
+  }
+
+  .hero-thumbs {
+    max-width: 252px;
+  }
+
+  .hero-thumb {
+    width: 54px;
+    height: 54px;
+  }
+
+  .trust-item {
+    width: 100%;
+  }
+
+  .media-card.video-card {
+    width: min(100%, 310px);
+  }
+
+  .checkout-form-wrap {
+    padding: 18px 14px;
+  }
+
+  .checkout-info-title,
+  .video-copy-title {
+    font-size: 24px;
+  }
+}
 </style>
 </head>
 <body>
