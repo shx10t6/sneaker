@@ -1953,7 +1953,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <label class="form-label">اختار نوع الطلب *</label>
             <div class="bundle-options">
               <label class="bundle-option">
-                <input type="radio" name="package" value="single" checked onchange="updatePackage()">
+                <input type="radio" name="package" value="single" checked onchange="updatePackage()" onclick="handleOrderNowClick('package_single')">
                 <span class="bundle-card">
                   <span class="bundle-name">جزمة واحدة</span>
                   <span class="bundle-price">1099 جنيه <span class="tax-note">شامل الضريبة والشحن</span></span>
@@ -1961,7 +1961,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </span>
               </label>
               <label class="bundle-option">
-                <input type="radio" name="package" value="bundle" onchange="updatePackage()">
+                <input type="radio" name="package" value="bundle" onchange="updatePackage()" onclick="handleOrderNowClick('package_bundle')">
                 <span class="bundle-card">
                   <span class="bundle-name">باندل جزمتين</span>
                   <span class="bundle-price">2000 جنيه <span class="tax-note">شامل الضريبة والشحن</span></span>
@@ -2072,7 +2072,8 @@ function getProductEventData() {
   return {
     product_name: PRODUCT_NAME,
     value: getCurrentOrderValue(),
-    currency: CURRENCY
+    currency: CURRENCY,
+    package: getSelectedPackageType()
   };
 }
 
@@ -2105,10 +2106,9 @@ let checkoutStartPushed = false;
 function pushCheckoutStart() {
   if (checkoutStartPushed) return;
   checkoutStartPushed = true;
-  pushDataLayerEvent('checkout_start', {
-    ...getProductEventData(),
-    package: getSelectedPackageType()
-  });
+  const checkoutData = getProductEventData();
+  pushDataLayerEvent('checkout_start', checkoutData);
+  console.log("checkout_start fired", checkoutData);
 }
 
 function setupCheckoutFormSubmit() {
