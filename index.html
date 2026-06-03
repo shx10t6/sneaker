@@ -2081,6 +2081,7 @@ function handleOrderNowClick(location) {
     ...getProductEventData(),
     location
   });
+  pushCheckoutStart();
 }
 
 const firedScrollEvents = {};
@@ -2104,28 +2105,10 @@ let checkoutStartPushed = false;
 function pushCheckoutStart() {
   if (checkoutStartPushed) return;
   checkoutStartPushed = true;
-  pushDataLayerEvent('checkout_start', getProductEventData());
-}
-
-function setupCheckoutStartTracking() {
-  const checkout = document.getElementById('checkout');
-  const checkoutForm = document.getElementById('checkout-form');
-
-  if (checkout) {
-    const checkoutObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          pushCheckoutStart();
-          checkoutObserver.disconnect();
-        }
-      });
-    }, { threshold: 0.35 });
-    checkoutObserver.observe(checkout);
-  }
-
-  if (checkoutForm) {
-    checkoutForm.addEventListener('focusin', pushCheckoutStart, { once: true });
-  }
+  pushDataLayerEvent('checkout_start', {
+    ...getProductEventData(),
+    package: getSelectedPackageType()
+  });
 }
 
 function setupCheckoutFormSubmit() {
@@ -2226,7 +2209,6 @@ window.addEventListener('DOMContentLoaded', () => {
   pushDataLayerEvent('view_content', getProductEventData());
   updatePackage();
   setupScrollTracking();
-  setupCheckoutStartTracking();
   setupCheckoutFormSubmit();
   setupVideoTracking();
 });
