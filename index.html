@@ -2082,7 +2082,6 @@ function handleOrderNowClick(location) {
     ...getProductEventData(),
     location
   });
-  pushCheckoutStart();
 }
 
 const firedScrollEvents = {};
@@ -2116,6 +2115,8 @@ function setupCheckoutFormSubmit() {
   if (!checkoutForm || checkoutForm.dataset.submitBound === 'true') return;
 
   checkoutForm.dataset.submitBound = 'true';
+  checkoutForm.addEventListener('input', pushCheckoutStart);
+  checkoutForm.addEventListener('change', pushCheckoutStart);
   checkoutForm.addEventListener('submit', handleSubmit);
 }
 
