@@ -2110,11 +2110,22 @@ function pushCheckoutStart() {
   console.log("checkout_start fired", checkoutData);
 }
 
+let formStartPushed = false;
+function pushFormStart() {
+  if (formStartPushed) return;
+  formStartPushed = true;
+  const formStartData = getProductEventData();
+  pushDataLayerEvent('form_start', formStartData);
+  console.log("form_start fired", formStartData);
+}
+
 function setupCheckoutFormSubmit() {
   const checkoutForm = document.getElementById('checkout-form');
   if (!checkoutForm || checkoutForm.dataset.submitBound === 'true') return;
 
   checkoutForm.dataset.submitBound = 'true';
+  checkoutForm.addEventListener('focusin', pushFormStart);
+  checkoutForm.addEventListener('input', pushFormStart);
   checkoutForm.addEventListener('input', pushCheckoutStart);
   checkoutForm.addEventListener('change', pushCheckoutStart);
   checkoutForm.addEventListener('submit', handleSubmit);
