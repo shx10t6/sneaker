@@ -12,6 +12,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-M3S7LHB9');</script>
 <!-- End Google Tag Manager -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preload" as="image" href="black.opt.jpg" fetchpriority="high">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
 /* ===== CSS VARIABLES ===== */
@@ -138,6 +139,13 @@ a { text-decoration: none; color: inherit; }
   border-radius: 8px;
   display: flex; align-items: center; justify-content: center;
   font-size: 18px; font-weight: 900; color: #0a0b0f;
+  overflow: hidden;
+}
+.logo-s img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 .header-nav { display: flex; gap: 24px; }
 .header-nav a {
@@ -170,7 +178,7 @@ a { text-decoration: none; color: inherit; }
   grid-template-columns: 1fr 1fr;
   gap: 60px;
   align-items: center;
-  padding: 60px 0;
+  padding: 28px 0 48px;
 }
 .hero-content { order: 1; }
 .hero-image-wrap { order: 2; position: relative; }
@@ -226,6 +234,12 @@ a { text-decoration: none; color: inherit; }
 }
 .hero-price-currency { font-size: 20px; color: var(--accent); font-weight: 700; }
 .hero-price-note { font-size: 13px; color: var(--text-muted); }
+.hero-bundle-price-note {
+  margin: -18px 0 18px;
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 800;
+}
 .hero-rating {
   display: flex;
   align-items: center;
@@ -237,6 +251,56 @@ a { text-decoration: none; color: inherit; }
   display: flex;
   gap: 14px;
   flex-wrap: wrap;
+}
+.hero-selection {
+  margin: 18px 0 18px;
+  padding: 18px;
+  border: 1px solid rgba(232,201,122,0.14);
+  border-radius: var(--radius);
+  background: rgba(17,19,24,0.68);
+}
+.hero-selection .option-label {
+  margin-bottom: 10px;
+}
+.hero-selection .model-options,
+.hero-selection .size-options {
+  margin-bottom: 18px;
+}
+.hero-selection .bundle-options {
+  margin-bottom: 0;
+  grid-template-columns: repeat(2, minmax(150px, 1fr));
+}
+.hero-selection .bundle-option {
+  min-width: 0;
+}
+.hero-selection .bundle-card {
+  min-width: 0;
+  min-height: 94px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.hero-selection .bundle-name,
+.hero-selection .bundle-price,
+.hero-selection .tax-note {
+  white-space: normal;
+}
+.hero-selection .bundle-extra {
+  margin-top: 14px;
+}
+.hero-final-price {
+  display: none;
+  margin: 8px 0 14px;
+  color: var(--accent);
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.6;
+}
+.hero-final-price.show {
+  display: block;
+}
+.hero-selection-anchor {
+  scroll-margin-top: 90px;
 }
 /* HERO PRODUCT IMAGE */
 .hero-img-stage {
@@ -297,8 +361,9 @@ a { text-decoration: none; color: inherit; }
   filter: blur(8px);
 }
 @media (max-width: 768px) {
-  .hero-grid { grid-template-columns: 1fr; gap: 30px; padding: 40px 0 20px; }
+  .hero-grid { grid-template-columns: 1fr; gap: 30px; padding: 22px 0 20px; }
   .hero-image-wrap { order: -1; }
+  .hero-content { order: 1; }
   .hero-shoe-img { max-width: 320px; margin: 0 auto; transform: none; }
   .hero-shoe-img:hover { transform: translateY(-6px); }
   .hero-ctas { flex-direction: column; }
@@ -310,7 +375,7 @@ a { text-decoration: none; color: inherit; }
   background: var(--bg-card);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
-  padding: 20px 0;
+  padding: 14px 0;
 }
 .trust-items {
   display: flex;
@@ -332,12 +397,22 @@ a { text-decoration: none; color: inherit; }
 
 /* ===== MEDIA SECTION ===== */
 #media-section {
-  padding: 80px 0;
+  padding: 56px 0;
   background: var(--bg-dark);
 }
-.media-header { text-align: center; margin-bottom: 48px; }
+.media-header { text-align: center; margin-bottom: 30px; }
 .media-title { font-size: 30px; font-weight: 800; color: var(--white); margin-bottom: 12px; }
 .media-sub { font-size: 15px; color: var(--text-secondary); }
+.section-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 26px;
+}
+.section-cta .btn-primary {
+  min-width: 180px;
+  padding: 13px 24px;
+  font-size: 14px;
+}
 .media-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -529,6 +604,15 @@ a { text-decoration: none; color: inherit; }
   color: #0a0b0f;
   font-weight: 900;
 }
+.size-options.needs-attention {
+  border-radius: 14px;
+  box-shadow: 0 0 0 3px rgba(224,85,85,0.24), 0 0 22px rgba(224,85,85,0.18);
+  animation: sizePulse 0.9s ease-in-out 2;
+}
+@keyframes sizePulse {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
 .selector-add-btn { width: 100%; padding: 18px; font-size: 17px; }
 @media (max-width: 768px) {
   .selector-wrap { grid-template-columns: 1fr; gap: 32px; }
@@ -536,10 +620,10 @@ a { text-decoration: none; color: inherit; }
 
 /* ===== BENEFITS ===== */
 #benefits {
-  padding: 80px 0;
+  padding: 56px 0;
   background: var(--bg-dark);
 }
-.benefits-header { text-align: center; margin-bottom: 48px; }
+.benefits-header { text-align: center; margin-bottom: 30px; }
 .benefits-title { font-size: 30px; font-weight: 800; color: var(--white); margin-bottom: 12px; }
 .benefits-grid {
   display: grid;
@@ -584,7 +668,7 @@ a { text-decoration: none; color: inherit; }
 
 /* ===== VIDEO SECTION ===== */
 #video-section {
-  padding: 80px 0;
+  padding: 56px 0;
   background: linear-gradient(180deg, var(--bg-dark), #0d0f16);
 }
 .video-section-inner {
@@ -650,10 +734,10 @@ a { text-decoration: none; color: inherit; }
 
 /* ===== REVIEWS ===== */
 #reviews {
-  padding: 80px 0;
+  padding: 56px 0;
   background: var(--bg-dark);
 }
-.reviews-header { text-align: center; margin-bottom: 48px; }
+.reviews-header { text-align: center; margin-bottom: 30px; }
 .reviews-title { font-size: 30px; font-weight: 800; color: var(--white); margin-bottom: 16px; }
 .reviews-summary {
   display: flex;
@@ -710,10 +794,10 @@ a { text-decoration: none; color: inherit; }
 
 /* ===== FAQ ===== */
 #faq {
-  padding: 80px 0;
+  padding: 56px 0;
   background: linear-gradient(180deg, var(--bg-dark), var(--bg-card));
 }
-.faq-header { text-align: center; margin-bottom: 48px; }
+.faq-header { text-align: center; margin-bottom: 30px; }
 .faq-title { font-size: 30px; font-weight: 800; color: var(--white); }
 .faq-list { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
 .faq-item {
@@ -769,7 +853,7 @@ a { text-decoration: none; color: inherit; }
 
 /* ===== CHECKOUT ===== */
 #checkout {
-  padding: 80px 0;
+  padding: 56px 0;
   background: var(--bg-dark);
 }
 .checkout-wrap {
@@ -810,6 +894,7 @@ a { text-decoration: none; color: inherit; }
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
+  min-width: 0;
 }
 .bundle-option {
   position: relative;
@@ -828,11 +913,13 @@ a { text-decoration: none; color: inherit; }
   border-radius: 12px;
   padding: 14px;
   transition: var(--transition);
+  overflow: visible;
+  min-width: 0;
 }
 .bundle-option input:checked + .bundle-card {
   border-color: var(--accent);
   background: rgba(232,201,122,0.08);
-  box-shadow: 0 0 0 3px rgba(232,201,122,0.12);
+  box-shadow: 0 0 0 3px rgba(232,201,122,0.14), 0 0 20px rgba(232,201,122,0.12);
 }
 .bundle-name {
   display: block;
@@ -913,6 +1000,54 @@ a { text-decoration: none; color: inherit; }
 .form-price-tax { display: block; font-size: 11px; color: var(--text-muted); font-weight: 600; margin-top: 2px; }
 #order-now-btn { width: 100%; padding: 18px; font-size: 18px; margin-top: 4px; }
 .form-disclaimer { font-size: 12px; color: var(--text-muted); text-align: center; line-height: 1.6; margin-top: 8px; }
+.order-summary-box {
+  border: 1px solid rgba(232,201,122,0.18);
+  background: rgba(232,201,122,0.05);
+  border-radius: 12px;
+  padding: 14px;
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.7;
+}
+.order-summary-edit {
+  display: inline-flex;
+  margin-top: 8px;
+  color: var(--accent);
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font-family: var(--font-main);
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.order-summary-warning {
+  margin-top: 6px;
+  color: #ffb0a8;
+  font-size: 13px;
+  font-weight: 800;
+}
+.notes-toggle {
+  align-self: flex-start;
+  color: var(--accent);
+  background: transparent;
+  border: 0;
+  padding: 2px 0;
+  font-family: var(--font-main);
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.notes-field-collapsed {
+  display: none;
+}
+.product-form-field-hidden {
+  display: none !important;
+}
+.form-row.has-hidden-product-field {
+  grid-template-columns: 1fr;
+}
 @media (max-width: 768px) {
   .checkout-wrap { grid-template-columns: 1fr; gap: 32px; }
   .form-row { grid-template-columns: 1fr; }
@@ -992,12 +1127,15 @@ a { text-decoration: none; color: inherit; }
   display: flex;
   align-items: center;
   gap: 18px;
+  width: 100%;
 }
 
 .hero-thumbs {
   display: flex;
   flex-direction: column;
   gap: 14px;
+  flex: 0 0 90px;
+  align-items: center;
 }
 
 .hero-thumb {
@@ -1005,7 +1143,7 @@ a { text-decoration: none; color: inherit; }
   height: 90px;
   object-fit: cover;
   border-radius: 14px;
-  border: 2px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(212,175,55,0.18);
   background: #111318;
   cursor: pointer;
   transition: 0.3s ease;
@@ -1014,17 +1152,161 @@ a { text-decoration: none; color: inherit; }
 
 .hero-thumb:hover {
   transform: translateY(-2px);
-  border-color: rgba(232, 201, 122, 0.7);
-  box-shadow: 0 0 20px rgba(232, 201, 122, 0.15);
+  border-color: rgba(212,175,55,0.48);
+  box-shadow: 0 0 18px rgba(212,175,55,0.12);
 }
 
 .hero-thumb.active {
-  border-color: #e8c97a;
-  box-shadow: 0 0 22px rgba(232, 201, 122, 0.22);
+  border-color: #C9A44C;
+  box-shadow: 0 0 18px rgba(212,175,55,0.22);
 }
 
 .hero-img-stage {
   flex: 1;
+  width: 100%;
+  height: min(580px, calc(100vh - 150px));
+  max-height: 580px;
+  min-height: min(420px, calc(100vh - 150px));
+  overflow: hidden;
+  border: 1px solid rgba(212,175,55,0.35);
+  border-radius: var(--radius);
+  box-shadow: 0 18px 44px rgba(0,0,0,0.32), 0 0 24px rgba(212,175,55,0.10);
+  aspect-ratio: auto;
+}
+
+.hero-shoe-stage {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+#hero-main-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(232,201,122,0.34) 0%, rgba(201,164,76,0.26) 48%, rgba(62,48,20,0.34) 100%);
+}
+
+.image-zoom-hint {
+  margin-top: 12px;
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+}
+.hero-image-wrap .image-zoom-hint {
+  width: min(100%, 580px);
+  margin-right: auto;
+  margin-left: auto;
+}
+.media-zoom-hint {
+  grid-column: 1 / -1;
+  margin: -18px 0 2px;
+}
+
+.hero-img-stage,
+#hero-main-img,
+.media-card:not(.video-card) img {
+  cursor: zoom-in;
+}
+
+/* ===== PRODUCT LIGHTBOX ===== */
+.product-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+  background: rgba(5, 6, 9, 0.94);
+  backdrop-filter: blur(12px);
+}
+.product-lightbox.open {
+  display: flex;
+}
+.product-lightbox-inner {
+  width: min(100%, 980px);
+  height: min(100%, 760px);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 14px;
+}
+.lightbox-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--white);
+}
+.lightbox-count {
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 700;
+}
+.lightbox-close,
+.lightbox-nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(17, 19, 24, 0.82);
+  color: var(--white);
+  cursor: pointer;
+  transition: var(--transition);
+}
+.lightbox-close {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 28px;
+  line-height: 1;
+}
+.lightbox-close:hover,
+.lightbox-nav:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.lightbox-stage {
+  position: relative;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lightbox-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+  background: #000;
+  box-shadow: 0 24px 70px rgba(0,0,0,0.45);
+  user-select: none;
+}
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  font-size: 34px;
+  z-index: 1;
+}
+.lightbox-prev { right: 8px; }
+.lightbox-next { left: 8px; }
+.lightbox-caption {
+  min-height: 22px;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+body.lightbox-open {
+  overflow: hidden;
 }
 
 /* موبايل */
@@ -1036,11 +1318,34 @@ a { text-decoration: none; color: inherit; }
   .hero-thumbs {
     flex-direction: row;
     justify-content: center;
+    flex: 0 0 auto;
   }
 
   .hero-thumb {
     width: 72px;
     height: 72px;
+  }
+
+  .product-lightbox {
+    padding: 14px;
+  }
+
+  .product-lightbox-inner {
+    height: 100%;
+  }
+
+  .lightbox-nav {
+    width: 42px;
+    height: 42px;
+    font-size: 30px;
+    background: rgba(17, 19, 24, 0.72);
+  }
+
+  .lightbox-prev { right: 2px; }
+  .lightbox-next { left: 2px; }
+
+  .lightbox-image {
+    max-height: calc(100vh - 160px);
   }
 }
 .video-card video {
@@ -1088,12 +1393,14 @@ a { text-decoration: none; color: inherit; }
   }
 
   .hero-grid {
-    gap: 14px;
-    padding: 14px 0 30px;
+    gap: 12px;
+    padding: 4px 0 22px;
   }
 
   .hero-content {
     text-align: center;
+    display: flex;
+    flex-direction: column;
   }
 
   .hero-tag {
@@ -1101,54 +1408,87 @@ a { text-decoration: none; color: inherit; }
   }
 
   .hero-title {
-    font-size: clamp(28px, 8vw, 36px);
-    line-height: 1.22;
-    margin-bottom: 10px;
+    font-size: 27px;
+    line-height: 1.28;
+    margin-bottom: 8px;
   }
 
   .hero-sub {
     max-width: none;
-    font-size: 14px;
-    line-height: 1.7;
-    margin-bottom: 12px;
+    font-size: 13px;
+    line-height: 1.55;
+    margin-bottom: 10px;
   }
 
   .hero-bullets {
-    gap: 8px;
-    margin-bottom: 14px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 7px;
+    margin-bottom: 12px;
     text-align: right;
   }
 
   .hero-bullet {
-    align-items: flex-start;
+    justify-content: center;
     font-size: 13px;
-    line-height: 1.6;
+    line-height: 1.35;
+    color: var(--white);
+    padding: 8px 10px;
+    border: 1px solid rgba(232,201,122,0.18);
+    border-radius: 10px;
+    background: rgba(255,255,255,0.035);
   }
 
   .hero-rating {
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 12px;
+    display: none;
   }
 
   .hero-price-row {
     justify-content: center;
     flex-wrap: wrap;
-    gap: 6px 10px;
-    margin-bottom: 14px;
+    gap: 5px 8px;
+    margin-bottom: 10px;
   }
 
   .hero-price {
-    font-size: 34px;
+    font-size: 36px;
+    line-height: 1;
   }
 
   .hero-price-note {
-    flex-basis: 100%;
+    flex-basis: auto;
     text-align: center;
+    color: var(--accent);
+    font-size: 14px;
+    font-weight: 800;
   }
 
   .hero-ctas {
     gap: 8px;
+    order: 6;
+  }
+
+  .hero-ctas .btn-secondary {
+    display: none;
+  }
+
+  .hero-selection {
+    order: 7;
+    padding: 14px;
+    margin: 12px 0 0;
+  }
+
+  .hero-selection .bundle-options {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-selection .bundle-card {
+    min-height: 78px;
+  }
+
+  .hero-final-price {
+    order: 5;
+    margin-bottom: 10px;
   }
 
   .hero-ctas .btn-primary,
@@ -1167,14 +1507,18 @@ a { text-decoration: none; color: inherit; }
   }
 
   .hero-img-stage {
-    width: min(100%, 282px);
-    max-width: 282px;
-    aspect-ratio: 1 / 1;
+    width: min(100%, 340px);
+    max-width: 340px;
+    height: min(420px, 72vh);
+    max-height: 420px;
+    min-height: 0;
+    aspect-ratio: auto;
     margin: 0 auto;
   }
 
   .hero-shoe-stage {
     width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1182,20 +1526,21 @@ a { text-decoration: none; color: inherit; }
 
   #hero-main-img {
     width: 100%;
-    max-height: 282px;
+    height: 100%;
+    max-height: 420px;
     object-fit: contain;
   }
 
   .hero-thumbs {
     width: 100%;
-    max-width: 282px;
+    max-width: 340px;
     justify-content: center;
     gap: 8px;
   }
 
   .hero-thumb {
-    width: 64px;
-    height: 64px;
+    width: 54px;
+    height: 54px;
     padding: 5px;
     border-radius: 12px;
     flex: 0 0 auto;
@@ -1216,7 +1561,7 @@ a { text-decoration: none; color: inherit; }
   #reviews,
   #faq,
   #checkout {
-    padding: 48px 0;
+    padding: 36px 0;
   }
 
   .trust-items {
@@ -1235,7 +1580,7 @@ a { text-decoration: none; color: inherit; }
   .benefits-header,
   .reviews-header,
   .faq-header {
-    margin-bottom: 28px;
+    margin-bottom: 22px;
   }
 
   .media-title,
@@ -1461,16 +1806,20 @@ a { text-decoration: none; color: inherit; }
   }
 
   .hero-img-stage {
-    width: min(100%, 252px);
-    max-width: 252px;
+    width: min(100%, 320px);
+    max-width: 320px;
+    height: min(420px, 70vh);
+    max-height: 420px;
   }
 
   #hero-main-img {
-    max-height: 252px;
+    height: 100%;
+    max-height: 420px;
+    object-fit: contain;
   }
 
   .hero-thumbs {
-    max-width: 252px;
+    max-width: 320px;
   }
 
   .hero-thumb {
@@ -1511,11 +1860,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="container">
     <div class="header-inner">
       <div class="logo">
-        <div class="logo-s">S</div>
+        <div class="logo-s"><img src="logo.png" alt="Stepora"></div>
         Stepora
       </div>
       <nav class="header-nav">
-        <a href="#product-selector">الموديلات</a>
+        <a href="#hero-selection">الموديلات</a>
         <a href="#benefits">المميزات</a>
         <a href="#reviews">التقييمات</a>
         <a href="#faq">الأسئلة</a>
@@ -1536,20 +1885,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span class="section-tag">✦ جديد 2026</span>
         </div>
 <h1 class="hero-title">
-  راحة يومية<br>
-  <span>للشغل والمشي والخروج</span>
+  كوتشي يومي خفيف ومريح للشغل والمشي والخروج
 </h1>
 <p class="hero-sub">
-  مجموعة Stepora SKET بثلاث موديلات مريحة بتصميم رياضي للاستخدام اليومي.
-  <br>
-  SKET-1 / SKET-2 / SKET-5
+  Stepora SKET بتصميم رياضي عملي للاستخدام اليومي.
 </p>
-        <p class="hero-sub">حذاء Stepora — مصمم للراحة اليومية بنعل EVA خفيف ومواد عالية الجودة. مناسب للشغل والمشي والخروج.</p>
         <div class="hero-bullets">
-          <div class="hero-bullet"><div class="hero-bullet-dot">✓</div> نعل EVA خفيف الوزن ومريح</div>
-          <div class="hero-bullet"><div class="hero-bullet-dot">✓</div> مقاسات 41 حتى 45 متاحة</div>
           <div class="hero-bullet"><div class="hero-bullet-dot">✓</div> الدفع عند الاستلام</div>
           <div class="hero-bullet"><div class="hero-bullet-dot">✓</div> استبدال المقاس متاح</div>
+          <div class="hero-bullet"><div class="hero-bullet-dot">✓</div> مقاسات 41–45</div>
         </div>
         <div class="hero-rating">
           <div class="star" style="font-size:18px">★★★★★</div>
@@ -1558,10 +1902,81 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="hero-price-row">
           <span class="hero-price">1099</span>
           <span class="hero-price-currency">جنيه</span>
-          <span class="hero-price-note">شامل الضريبة والشحن</span>
+          <span class="hero-price-note">شامل الشحن</span>
         </div>
+        <div class="hero-bundle-price-note">الباندل: جزمتين بـ 2000 جنيه شامل الشحن</div>
+        <div class="hero-selection hero-selection-anchor" id="hero-selection">
+          <p class="selector-model-name" id="selected-model-name">أسود / أبيض — Midnight Black</p>
+          <div class="option-label">اللون / الموديل</div>
+          <div class="model-options">
+            <div class="model-option color-option" data-model="0" data-name="أبيض / أسود — Classic White" data-img="white.opt.jpg" data-glow="rgba(240,240,240,0.1)" onclick="selectModel(this)">
+              <img src="white.opt.jpg" alt="أبيض أسود" width="1122" height="1402" decoding="async">
+              <div class="model-check">✓</div>
+            </div>
+            <div class="model-option color-option" data-model="1" data-name="كحلي / رمادي — Navy Strategy" data-img="blue.opt.jpg" data-glow="rgba(30,50,120,0.15)" onclick="selectModel(this)">
+              <img src="blue.opt.jpg" alt="كحلي رمادي" width="1122" height="1402" decoding="async">
+              <div class="model-check">✓</div>
+            </div>
+            <div class="model-option color-option active" data-model="2" data-name="أسود / أبيض — Midnight Black" data-img="black.opt.jpg" data-glow="rgba(255,255,255,0.06)" onclick="selectModel(this)">
+              <img src="black.opt.jpg" alt="أسود أبيض" width="1122" height="1402" decoding="async">
+              <div class="model-check">✓</div>
+            </div>
+          </div>
+          <div class="option-label">المقاس</div>
+          <div class="size-options" id="size-options-selector">
+            <button class="size-option" type="button" data-size="41" onclick="selectSize(this)">41</button>
+            <button class="size-option" type="button" data-size="42" onclick="selectSize(this)">42</button>
+            <button class="size-option" type="button" data-size="43" onclick="selectSize(this)">43</button>
+            <button class="size-option" type="button" data-size="44" onclick="selectSize(this)">44</button>
+            <button class="size-option" type="button" data-size="45" onclick="selectSize(this)">45</button>
+          </div>
+          <div class="option-label">نوع الطلب</div>
+          <div class="bundle-options">
+            <label class="bundle-option">
+              <input type="radio" name="package" value="single" form="checkout-form" checked onchange="updatePackage()" onclick="handleOrderNowClick('package_single')">
+              <span class="bundle-card">
+                <span class="bundle-name">جزمة واحدة</span>
+                <span class="bundle-price">1099 جنيه <span class="tax-note">شامل الشحن</span></span>
+              </span>
+            </label>
+            <label class="bundle-option">
+              <input type="radio" name="package" value="bundle" form="checkout-form" onchange="updatePackage()" onclick="handleOrderNowClick('package_bundle')">
+              <span class="bundle-card">
+                <span class="bundle-name">باندل جزمتين</span>
+                <span class="bundle-price">2000 جنيه <span class="tax-note">شامل الشحن</span></span>
+              </span>
+            </label>
+          </div>
+          <div class="bundle-extra" id="bundle-extra">
+            <div class="bundle-extra-title">اختيار الجزمة التانية</div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="f-model-2">موديل الجزمة التانية *</label>
+                <select id="f-model-2" name="second_model" class="form-input form-select" form="checkout-form">
+                  <option value="">اختار الموديل</option>
+                  <option>أبيض / أسود — Classic White</option>
+                  <option>كحلي / رمادي — Navy Strategy</option>
+                  <option>أسود / أبيض — Midnight Black</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="f-size-2">مقاس الجزمة التانية *</label>
+                <select id="f-size-2" name="second_size" class="form-input form-select" form="checkout-form">
+                  <option value="">اختار المقاس</option>
+                  <option>41</option>
+                  <option>42</option>
+                  <option>43</option>
+                  <option>44</option>
+                  <option>45</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="hero-final-price single show" id="hero-final-single">الإجمالي النهائي عند الاستلام: 1099 جنيه فقط شامل الشحن</p>
+        <p class="hero-final-price bundle" id="hero-final-bundle">باندل جزمتين: 2000 جنيه شامل الشحن</p>
         <div class="hero-ctas">
-          <a href="#checkout" id="hero-order-btn" class="btn-primary" onclick="handleOrderNowClick('hero')">🛒 اطلب الآن</a>
+          <a href="#checkout" id="hero-order-btn" class="btn-primary" onclick="handleHeroOrderClick(event)">اطلب الآن - دفع عند الاستلام</a>
           <button id="watch-video-btn" class="btn-secondary" onclick="scrollToVideo()">▶ شاهد الفيديو</button>
         </div>
       </div>
@@ -1569,30 +1984,37 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="hero-gallery">
     
     <div class="hero-thumbs">
-      <img src="white.png" alt="SKET White"
+      <img src="white.opt.jpg" alt="SKET White"
+           width="1122" height="1402" decoding="async"
+           class="hero-thumb"
+           onclick="changeHeroImage('white.opt.jpg', this)">
+
+      <img src="black.opt.jpg" alt="SKET Black"
+           width="1122" height="1402" decoding="async"
            class="hero-thumb active"
-           onclick="changeHeroImage('white.png', this)">
-      
-      <img src="black.png" alt="SKET Black"
+           onclick="changeHeroImage('black.opt.jpg', this)">
+
+      <img src="blue.opt.jpg" alt="SKET Blue"
+           width="1122" height="1402" decoding="async"
            class="hero-thumb"
-           onclick="changeHeroImage('black.png', this)">
-      
-      <img src="blue.png" alt="SKET Blue"
-           class="hero-thumb"
-           onclick="changeHeroImage('blue.png', this)">
+           onclick="changeHeroImage('blue.opt.jpg', this)">
     </div>
 
     <div class="hero-img-stage">
       <div class="hero-glow"></div>
       <div class="hero-shoe-stage">
-        <img src="white.png" alt="ستيبورا أبيض وأسود" id="hero-main-img">
+        <img src="black.opt.jpg" alt="ستيبورا أسود وأبيض" id="hero-main-img" width="1122" height="1402" fetchpriority="high" decoding="sync">
         <div class="hero-shadow-line"></div>
       </div>
       <div class="hero-badge">أكثر مبيعًا ⭐</div>
     </div>
 
   </div>
+  <p class="image-zoom-hint">اضغط على الصورة للتكبير 🔍</p>
 </div>
+    </div>
+    <div class="section-cta fade-up">
+      <a href="#checkout" class="btn-primary">اختار مقاسك واطلب</a>
     </div>
   </div>
 </section>
@@ -1618,72 +2040,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p class="media-sub">خامات راقية وتصميم متوازن بين الأناقة والراحة</p>
     </div>
     <div class="media-grid fade-up">
+      <p class="image-zoom-hint media-zoom-hint">اضغط على الصورة للتكبير 🔍</p>
       <div class="media-card">
-        <img src="black1.JPG" alt="Stepora كحلي ورمادي" loading="lazy">
+        <img src="black1.opt.jpg" alt="Stepora كحلي ورمادي" width="5712" height="4284" loading="lazy" decoding="async">
       </div>
       <div class="media-card">
-        <img src="white1.JPG" alt="Stepora أسود وأبيض" loading="lazy">
+        <img src="white1.opt.jpg" alt="Stepora أسود وأبيض" width="5712" height="4284" loading="lazy" decoding="async">
       </div>
       <div class="media-card">
-        <img src="blue1.JPG" alt="Stepora blue model" loading="lazy">
+        <img src="blue1.opt.jpg" alt="Stepora blue model" width="5712" height="4284" loading="lazy" decoding="async">
       </div>
   <div class="media-card video-card" id="media-video-card">
 <video
   id="product-video"
   data-video-name="product_video"
-  src="product.mp4"
-  poster="black1.JPG"
+  data-src="product.mp4"
   muted
   loop
   controls
   playsinline
-  preload="metadata">
+  preload="none">
 </video>
 </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== 3D PRODUCT SELECTOR ===== -->
-<section id="product-selector">
-  <div class="container">
-    <div class="selector-wrap">
-      <div class="selector-stage fade-up">
-        <div class="selector-glow" id="selector-glow" style="background: radial-gradient(circle, rgba(232,201,122,0.12) 0%, transparent 70%)"></div>
-        <!-- REPLACE: shoe images below with your actual image paths -->
-        <img id="active-shoe-img" src="white.png" alt="الحذاء المختار">
-        <div class="selector-shadow"></div>
-      </div>
-      <div class="selector-controls fade-up" style="transition-delay:0.15s">
-        <h2 class="selector-title">اختار موديلك</h2>
-        <p class="selector-model-name" id="selected-model-name">أبيض / أسود — Classic White</p>
-        <div class="option-label">اللون / الموديل</div>
-        <div class="model-options">
-          <div class="model-option color-option active" data-model="0" data-name="أبيض / أسود — Classic White" data-img="white.png" data-glow="rgba(240,240,240,0.1)" onclick="selectModel(this)">
-            <img src="white.png" alt="أبيض أسود">
-            <div class="model-check">✓</div>
-          </div>
-          <div class="model-option color-option" data-model="1" data-name="كحلي / رمادي — Navy Strategy" data-img="blue.png" data-glow="rgba(30,50,120,0.15)" onclick="selectModel(this)">
-            <img src="blue.png" alt="كحلي رمادي">
-            <div class="model-check">✓</div>
-          </div>
-          <div class="model-option color-option" data-model="2" data-name="أسود / أبيض — Midnight Black" data-img="black.png" data-glow="rgba(255,255,255,0.06)" onclick="selectModel(this)">
-            <img src="black.png" alt="أسود أبيض">
-            <div class="model-check">✓</div>
-          </div>
-        </div>
-        <div class="option-label">المقاس</div>
-        <div class="size-options" id="size-options-selector">
-          <button class="size-option" data-size="41" onclick="selectSize(this)">41</button>
-          <button class="size-option" data-size="42" onclick="selectSize(this)">42</button>
-          <button class="size-option" data-size="43" onclick="selectSize(this)">43</button>
-          <button class="size-option" data-size="44" onclick="selectSize(this)">44</button>
-          <button class="size-option" data-size="45" onclick="selectSize(this)">45</button>
-        </div>
-        <button class="btn-primary selector-add-btn" onclick="addToOrderFromSelector()">
-          اطلب الآن — 1099 جنيه شامل الضريبة والشحن 🛒
-        </button>
-      </div>
     </div>
   </div>
 </section>
@@ -1727,6 +2105,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="benefit-desc">شحن سريع لجميع محافظات مصر خلال 3-5 أيام عمل من تأكيد الطلب</div>
       </div>
     </div>
+    <div class="section-cta fade-up">
+      <a href="#checkout" class="btn-primary">اطلب الآن</a>
+    </div>
   </div>
 </section>
 
@@ -1750,17 +2131,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <video
             id="secondary-video"
             data-video-name="secondary_video"
-            src="blackproduct.mp4"
-            poster="black.png"
+            data-src="blackproduct.mp4"
             muted
             loop
             controls
             playsinline
-            preload="metadata"
+            preload="none"
             aria-label="فيديو المنتج">
           </video>
         </div>
       </div>
+    </div>
+    <div class="section-cta fade-up">
+      <a href="#checkout" class="btn-primary">اطلب الآن</a>
     </div>
   </div>
 </section>
@@ -1782,9 +2165,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="reviews-grid">
       <div class="review-card fade-up">
         <div class="review-header">
-          <div class="review-avatar" style="background: linear-gradient(135deg,#e8c97a,#c9a84c)">م</div>
+          <div class="review-avatar" style="background: linear-gradient(135deg,#e8c97a,#c9a84c)">A</div>
           <div class="review-info">
-            <div class="review-name">محمد أحمد</div>
+            <div class="review-name">Abdelaziz Hegazy</div>
             <div class="review-date">مشترى منذ أسبوعين · القاهرة</div>
           </div>
         </div>
@@ -1794,9 +2177,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div class="review-card fade-up" style="transition-delay:0.1s">
         <div class="review-header">
-          <div class="review-avatar" style="background: linear-gradient(135deg,#6ab0f5,#3a7bd5)">خ</div>
+          <div class="review-avatar" style="background: linear-gradient(135deg,#6ab0f5,#3a7bd5)">A</div>
           <div class="review-info">
-            <div class="review-name">خالد سعيد</div>
+            <div class="review-name">Ahmed Assi</div>
             <div class="review-date">مشترى منذ شهر · الإسكندرية</div>
           </div>
         </div>
@@ -1806,9 +2189,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div class="review-card fade-up" style="transition-delay:0.2s">
         <div class="review-header">
-          <div class="review-avatar" style="background: linear-gradient(135deg,#a0e080,#5cb85c)">أ</div>
+          <div class="review-avatar" style="background: linear-gradient(135deg,#a0e080,#5cb85c)">Y</div>
           <div class="review-info">
-            <div class="review-name">أحمد كريم</div>
+            <div class="review-name">Yusuf ElAshry</div>
             <div class="review-date">مشترى منذ 3 أسابيع · الجيزة</div>
           </div>
         </div>
@@ -1816,6 +2199,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="review-text">أحسن حذاء اشتريته بصراحة. النعل خفيف ومرن، والخامة ناعمة من الداخل. لابسه كل يوم في المشي ومحسوش بأي ضغط.</div>
         <span class="review-badge">✓ شراء مؤكد</span>
       </div>
+    </div>
+    <div class="section-cta fade-up">
+      <a href="#checkout" class="btn-primary">اختار مقاسك واطلب</a>
     </div>
   </div>
 </section>
@@ -1864,6 +2250,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="faq-answer"><div class="faq-answer-inner">بعض المناطق البعيدة أو خارج نطاق شركات الشحن قد تحتاج تأكيد قبل الشحن. لو منطقتك خارج التغطية، هنتواصل معاك أثناء تأكيد الطلب ونوضح لك أقرب حل متاح للتوصيل.</div></div>
       </div>
     </div>
+    <div class="section-cta fade-up">
+      <a href="#checkout" class="btn-primary">اطلب الآن</a>
+    </div>
   </div>
 </section>
 
@@ -1886,6 +2275,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <h3 class="checkout-form-title">اطلب دلوقتي</h3>
         <p class="checkout-form-sub">هنتواصل معاك خلال ساعات لتأكيد الطلب — الدفع عند الاستلام، والباندل يوفر 198 جنيه</p>
         <form id="checkout-form" novalidate>
+          <div class="order-summary-box">
+            <div id="current-order-summary">طلبك الحالي:<br>Stepora SKET - أسود / أبيض — Midnight Black<div class="order-summary-warning">من فضلك اختر المقاس من أعلى قبل تأكيد الطلب</div></div>
+            <div id="checkout-final-price">الإجمالي النهائي عند الاستلام: 1099 جنيه فقط شامل الشحن</div>
+            <button type="button" class="order-summary-edit" onclick="scrollToHeroSelection()">تعديل الاختيار</button>
+          </div>
           <div class="form-group">
             <label class="form-label" for="f-name">الاسم بالكامل *</label>
             <input type="text" id="f-name" name="name" class="form-input" placeholder="الاسم الأول والأخير" autocomplete="name" required>
@@ -1894,7 +2288,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <label class="form-label" for="f-phone">رقم الهاتف *</label>
             <input type="tel" id="f-phone" name="phone" class="form-input" placeholder="01XXXXXXXXX" inputmode="tel" autocomplete="tel" pattern="01[0-9]{9}" required>
           </div>
-          <div class="form-row">
+          <div class="form-row has-hidden-product-field">
             <div class="form-group">
               <label class="form-label" for="f-gov">المحافظة *</label>
               <select id="f-gov" name="governorate" class="form-input form-select" required>
@@ -1928,7 +2322,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <option>الشرقية</option>
               </select>
             </div>
-            <div class="form-group">
+            <div class="form-group product-form-field-hidden">
               <label class="form-label" for="f-size">المقاس *</label>
               <select id="f-size" name="size" class="form-input form-select" required>
                 <option value="">اختار المقاس</option>
@@ -1940,7 +2334,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               </select>
             </div>
           </div>
-          <div class="form-group">
+          <div class="form-group product-form-field-hidden">
             <label class="form-label" for="f-model">اللون / الموديل *</label>
             <select id="f-model" name="model" class="form-input form-select" required>
               <option value="">اختار الموديل</option>
@@ -1949,67 +2343,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <option>أسود / أبيض — Midnight Black</option>
             </select>
           </div>
-          <div class="form-group">
-            <label class="form-label">اختار نوع الطلب *</label>
-            <div class="bundle-options">
-              <label class="bundle-option">
-                <input type="radio" name="package" value="single" checked onchange="updatePackage()" onclick="handleOrderNowClick('package_single')">
-                <span class="bundle-card">
-                  <span class="bundle-name">جزمة واحدة</span>
-                  <span class="bundle-price">1099 جنيه <span class="tax-note">شامل الضريبة والشحن</span></span>
-                  <span class="bundle-note">اختيار موديل ومقاس واحد</span>
-                </span>
-              </label>
-              <label class="bundle-option">
-                <input type="radio" name="package" value="bundle" onchange="updatePackage()" onclick="handleOrderNowClick('package_bundle')">
-                <span class="bundle-card">
-                  <span class="bundle-name">باندل جزمتين</span>
-                  <span class="bundle-price">2000 جنيه <span class="tax-note">شامل الضريبة والشحن</span></span>
-                  <span class="bundle-note">اختار موديل ومقاس لكل جزمة ووفر 198 جنيه</span>
-                </span>
-              </label>
-            </div>
-            <input type="hidden" id="f-total" name="total" value="1099 جنيه شامل الضريبة والشحن">
-          </div>
-          <div class="bundle-extra" id="bundle-extra">
-            <div class="bundle-extra-title">اختيار الجزمة التانية</div>
-            <div class="form-row">
-              <div class="form-group">
-                <label class="form-label" for="f-model-2">موديل الجزمة التانية *</label>
-                <select id="f-model-2" name="second_model" class="form-input form-select">
-                  <option value="">اختار الموديل</option>
-                  <option>أبيض / أسود — Classic White</option>
-                  <option>كحلي / رمادي — Navy Strategy</option>
-                  <option>أسود / أبيض — Midnight Black</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="f-size-2">مقاس الجزمة التانية *</label>
-                <select id="f-size-2" name="second_size" class="form-input form-select">
-                  <option value="">اختار المقاس</option>
-                  <option>41</option>
-                  <option>42</option>
-                  <option>43</option>
-                  <option>44</option>
-                  <option>45</option>
-                </select>
-              </div>
-            </div>
-          </div>
+          <input type="hidden" id="f-total" name="total" value="1099 جنيه شامل الشحن">
           <div class="form-group">
             <label class="form-label" for="f-address">العنوان بالتفصيل *</label>
             <input type="text" id="f-address" name="address" class="form-input" placeholder="الشارع، الحي، المدينة" autocomplete="street-address" required>
           </div>
-          <div class="form-group">
+          <button type="button" class="notes-toggle" id="notes-toggle" onclick="showNotesField()">عندك ملاحظة؟ اضغط لإضافتها</button>
+          <div class="form-group notes-field-collapsed" id="notes-field">
             <label class="form-label" for="f-notes">ملاحظات إضافية</label>
             <textarea id="f-notes" name="notes" class="form-input form-textarea" placeholder="أي ملاحظات إضافية..."></textarea>
           </div>
           <div class="form-price-summary">
             <span class="form-price-label">💰 المبلغ عند الاستلام</span>
-            <span class="form-price-val" id="form-price-val">1099 جنيه <span class="form-price-tax">شامل الضريبة والشحن</span></span>
+            <span class="form-price-val" id="form-price-val">1099 جنيه <span class="form-price-tax">شامل الشحن</span></span>
           </div>
           <button type="submit" id="order-now-btn" class="btn-primary" onclick="handleOrderNowClick('checkout_form')">
-            🛒 اطلب الآن — 1099 جنيه شامل الضريبة والشحن
+            اطلب الآن — 1099 جنيه شامل الشحن
           </button>
           <p class="form-disclaimer">بالضغط على اطلب الآن، بتوافق على الشروط والأحكام. الدفع نقداً عند الاستلام.</p>
         </form>
@@ -2030,9 +2379,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div id="mobile-sticky-cta">
   <div class="mobile-sticky-inner">
     <div>
-      <div class="mobile-sticky-price">1099 <span>جنيه</span><span class="mobile-sticky-tax">شامل الضريبة والشحن</span></div>
+      <div class="mobile-sticky-price">1099 <span>جنيه</span><span class="mobile-sticky-tax">شامل الشحن</span></div>
     </div>
-    <a href="#checkout" class="btn-primary mobile-sticky-btn" onclick="handleOrderNowClick('mobile_sticky')">🛒 اطلب الآن</a>
+    <a href="#checkout" class="btn-primary mobile-sticky-btn" onclick="handleOrderNowClick('mobile_sticky')">اطلب الآن</a>
+  </div>
+</div>
+
+<div class="product-lightbox" id="product-lightbox" aria-hidden="true" role="dialog" aria-label="معرض صور المنتج">
+  <div class="product-lightbox-inner">
+    <div class="lightbox-topbar">
+      <div class="lightbox-count" id="lightbox-count"></div>
+      <button class="lightbox-close" type="button" id="lightbox-close" aria-label="إغلاق">×</button>
+    </div>
+    <div class="lightbox-stage" id="lightbox-stage">
+      <button class="lightbox-nav lightbox-prev" type="button" id="lightbox-prev" aria-label="الصورة السابقة">‹</button>
+      <img class="lightbox-image" id="lightbox-image" src="" alt="">
+      <button class="lightbox-nav lightbox-next" type="button" id="lightbox-next" aria-label="الصورة التالية">›</button>
+    </div>
+    <div class="lightbox-caption" id="lightbox-caption"></div>
   </div>
 </div>
 
@@ -2082,6 +2446,13 @@ function handleOrderNowClick(location) {
     ...getProductEventData(),
     location
   });
+}
+
+function handleHeroOrderClick(event) {
+  handleOrderNowClick('hero');
+  if (getSelectedProductSize()) return;
+  event.preventDefault();
+  highlightSizeSelector('من فضلك اختر المقاس من أعلى قبل تأكيد الطلب');
 }
 
 const firedScrollEvents = {};
@@ -2214,24 +2585,174 @@ function setupVideoTracking() {
   });
 }
 
+function setupLazyMedia() {
+  const lazyVideos = document.querySelectorAll('video[data-src]');
+
+  function loadVideo(video) {
+    if (video.dataset.src) {
+      video.src = video.dataset.src;
+      delete video.dataset.src;
+      video.preload = 'metadata';
+      video.addEventListener('loadedmetadata', () => {
+        if (video.duration > 0) video.currentTime = Math.min(0.8, video.duration * 0.08);
+      }, { once: true });
+      video.load();
+    }
+  }
+
+  if (!('IntersectionObserver' in window)) {
+    lazyVideos.forEach(loadVideo);
+    return;
+  }
+
+  const lazyVideoObserver = new IntersectionObserver((entries, observerInstance) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      loadVideo(entry.target);
+      observerInstance.unobserve(entry.target);
+    });
+  }, {
+    rootMargin: '250px 0px'
+  });
+
+  lazyVideos.forEach(video => lazyVideoObserver.observe(video));
+}
+
+const productGalleryImages = [];
+let productLightboxIndex = 0;
+let productLightboxTouchStartX = 0;
+
+function setupProductLightbox() {
+  const lightbox = document.getElementById('product-lightbox');
+  const closeBtn = document.getElementById('lightbox-close');
+  const prevBtn = document.getElementById('lightbox-prev');
+  const nextBtn = document.getElementById('lightbox-next');
+  const stage = document.getElementById('lightbox-stage');
+
+  if (!lightbox || productGalleryImages.length) return;
+
+  const gallerySelectors = [
+    '.hero-thumb',
+    '#hero-main-img',
+    '.media-card:not(.video-card) img'
+  ];
+  const images = document.querySelectorAll(gallerySelectors.join(','));
+  const lightboxTriggers = document.querySelectorAll('.media-card:not(.video-card) img');
+  const heroImageStage = document.querySelector('.hero-img-stage');
+
+  images.forEach(img => {
+    const src = img.getAttribute('src');
+    if (!src || productGalleryImages.some(item => item.src === src)) return;
+    productGalleryImages.push({
+      src,
+      alt: img.getAttribute('alt') || 'صورة المنتج'
+    });
+  });
+
+  lightboxTriggers.forEach(img => {
+    img.addEventListener('click', () => openProductLightboxBySrc(img.getAttribute('src')));
+  });
+  if (heroImageStage) {
+    heroImageStage.addEventListener('click', () => {
+      const heroMainImage = document.getElementById('hero-main-img');
+      if (heroMainImage) openProductLightboxBySrc(heroMainImage.getAttribute('src'));
+    });
+  }
+
+  closeBtn.addEventListener('click', closeProductLightbox);
+  prevBtn.addEventListener('click', showPreviousLightboxImage);
+  nextBtn.addEventListener('click', showNextLightboxImage);
+
+  lightbox.addEventListener('click', event => {
+    if (event.target === lightbox) closeProductLightbox();
+  });
+
+  stage.addEventListener('touchstart', event => {
+    productLightboxTouchStartX = event.changedTouches[0].clientX;
+  }, { passive: true });
+
+  stage.addEventListener('touchend', event => {
+    const swipeDistance = event.changedTouches[0].clientX - productLightboxTouchStartX;
+    if (Math.abs(swipeDistance) < 45) return;
+    if (swipeDistance > 0) showPreviousLightboxImage();
+    else showNextLightboxImage();
+  }, { passive: true });
+
+  document.addEventListener('keydown', event => {
+    if (!lightbox.classList.contains('open')) return;
+    if (event.key === 'Escape') closeProductLightbox();
+    if (event.key === 'ArrowRight') showPreviousLightboxImage();
+    if (event.key === 'ArrowLeft') showNextLightboxImage();
+  });
+}
+
+function openProductLightboxBySrc(src) {
+  const index = productGalleryImages.findIndex(item => item.src === src);
+  openProductLightbox(index >= 0 ? index : 0);
+}
+
+function openProductLightbox(index) {
+  const lightbox = document.getElementById('product-lightbox');
+  if (!lightbox || !productGalleryImages.length) return;
+  productLightboxIndex = index;
+  renderProductLightboxImage();
+  lightbox.classList.add('open');
+  lightbox.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('lightbox-open');
+}
+
+function closeProductLightbox() {
+  const lightbox = document.getElementById('product-lightbox');
+  if (!lightbox) return;
+  lightbox.classList.remove('open');
+  lightbox.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('lightbox-open');
+}
+
+function showPreviousLightboxImage() {
+  productLightboxIndex = (productLightboxIndex - 1 + productGalleryImages.length) % productGalleryImages.length;
+  renderProductLightboxImage();
+}
+
+function showNextLightboxImage() {
+  productLightboxIndex = (productLightboxIndex + 1) % productGalleryImages.length;
+  renderProductLightboxImage();
+}
+
+function renderProductLightboxImage() {
+  const image = productGalleryImages[productLightboxIndex];
+  const lightboxImage = document.getElementById('lightbox-image');
+  const caption = document.getElementById('lightbox-caption');
+  const count = document.getElementById('lightbox-count');
+  if (!image || !lightboxImage || !caption || !count) return;
+  lightboxImage.src = image.src;
+  lightboxImage.alt = image.alt;
+  caption.textContent = image.alt;
+  count.textContent = `${productLightboxIndex + 1} / ${productGalleryImages.length}`;
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   pushDataLayerEvent('page_view', {
     page_name: 'Stepora Landing Page'
   });
   pushDataLayerEvent('view_content', getProductEventData());
   updatePackage();
+  initializeHeroSelection();
   setupScrollTracking();
   setupCheckoutFormSubmit();
+  setupLazyMedia();
   setupVideoTracking();
+  setupProductLightbox();
+  setupStickyCheckoutText();
 });
 
 // ===== SELECTED STATE =====
-let selectedModel = 0;
+let selectedModel = 2;
 let selectedSize = null;
 const modelImgs = [
-  'white.png',
-  'blue.png',
-  'black.png'
+  'white.opt.jpg',
+  'blue.opt.jpg',
+  'black.opt.jpg'
 ];
 const glowColors = [
   'radial-gradient(circle, rgba(232,201,122,0.12) 0%, transparent 70%)',
@@ -2245,19 +2766,31 @@ function selectModel(el) {
   const img = el.dataset.img;
   const name = el.dataset.name;
   selectedModel = parseInt(el.dataset.model);
-  // transition shoe image
+  const heroMainImg = document.getElementById('hero-main-img');
+  if (heroMainImg && img) heroMainImg.src = img;
+  document.querySelectorAll('.hero-thumb').forEach(thumb => {
+    thumb.classList.toggle('active', thumb.getAttribute('src') === img);
+  });
   const shoeImg = document.getElementById('active-shoe-img');
-  shoeImg.style.opacity = '0';
-  shoeImg.style.transform = 'translateY(12px)';
+  if (shoeImg) {
+    shoeImg.style.opacity = '0';
+    shoeImg.style.transform = 'translateY(12px)';
+  }
   setTimeout(() => {
-    shoeImg.src = img;
-    shoeImg.style.opacity = '1';
-    shoeImg.style.transform = 'translateY(0)';
-    document.getElementById('selector-glow').style.background = glowColors[selectedModel];
-    document.getElementById('selected-model-name').textContent = name;
-    // sync form dropdown
+    if (shoeImg) {
+      shoeImg.src = img;
+      shoeImg.style.opacity = '1';
+      shoeImg.style.transform = 'translateY(0)';
+    }
+    const selectorGlow = document.getElementById('selector-glow');
+    const selectedModelName = document.getElementById('selected-model-name');
+    if (selectorGlow) selectorGlow.style.background = glowColors[selectedModel];
+    if (selectedModelName) selectedModelName.textContent = name;
     const formModel = document.getElementById('f-model');
-    for(let o of formModel.options) { if(o.text === name) { formModel.value = o.value || o.text; break; } }
+    if (formModel) {
+      for(let o of formModel.options) { if(o.text === name) { formModel.value = o.value || o.text; break; } }
+    }
+    syncOrderSummary();
   }, 200);
 }
 
@@ -2265,8 +2798,10 @@ function selectSize(el) {
   document.querySelectorAll('.size-option').forEach(s => s.classList.remove('active'));
   el.classList.add('active');
   selectedSize = el.dataset.size;
-  // sync form
-  document.getElementById('f-size').value = selectedSize;
+  const sizeField = document.getElementById('f-size');
+  if (sizeField) sizeField.value = selectedSize;
+  clearSizeHighlight();
+  syncOrderSummary();
   pushDataLayerEvent('size_select', {
     product_name: PRODUCT_NAME,
     product_size: selectedSize
@@ -2285,6 +2820,9 @@ function updatePackage() {
   const totalInput = document.getElementById('f-total');
   const orderBtn = document.getElementById('order-now-btn');
   const stickyPrice = document.querySelector('.mobile-sticky-price');
+  const stickyBtn = document.querySelector('.mobile-sticky-btn');
+  const heroSinglePrice = document.getElementById('hero-final-single');
+  const heroBundlePrice = document.getElementById('hero-final-bundle');
 
   if (extra) extra.classList.toggle('show', isBundle);
   if (secondModel) secondModel.required = isBundle;
@@ -2295,15 +2833,102 @@ function updatePackage() {
   }
 
   if (priceVal) priceVal.innerHTML = isBundle
-    ? '2000 جنيه <span class="form-price-tax">شامل الضريبة والشحن</span>'
-    : '1099 جنيه <span class="form-price-tax">شامل الضريبة والشحن</span>';
-  if (totalInput) totalInput.value = isBundle ? '2000 جنيه شامل الضريبة والشحن' : '1099 جنيه شامل الضريبة والشحن';
+    ? '2000 جنيه <span class="form-price-tax">شامل الشحن</span>'
+    : '1099 جنيه <span class="form-price-tax">شامل الشحن</span>';
+  if (totalInput) totalInput.value = isBundle ? '2000 جنيه شامل الشحن' : '1099 جنيه شامل الشحن';
   if (orderBtn) orderBtn.textContent = isBundle
-    ? '🛒 اطلب الباندل — 2000 جنيه شامل الضريبة والشحن'
-    : '🛒 اطلب الآن — 1099 جنيه شامل الضريبة والشحن';
+    ? 'اطلب الباندل — 2000 جنيه شامل الشحن'
+    : 'اطلب الآن — 1099 جنيه شامل الشحن';
   if (stickyPrice) stickyPrice.innerHTML = isBundle
-    ? '2000 <span>جنيه</span><span class="mobile-sticky-tax">شامل الضريبة والشحن</span>'
-    : '1099 <span>جنيه</span><span class="mobile-sticky-tax">شامل الضريبة والشحن</span>';
+    ? '2000 <span>جنيه</span><span class="mobile-sticky-tax">شامل الشحن</span>'
+    : '1099 <span>جنيه</span><span class="mobile-sticky-tax">شامل الشحن</span>';
+  if (stickyBtn && !stickyBtn.dataset.inCheckout) stickyBtn.textContent = 'اطلب الآن';
+  if (heroSinglePrice) heroSinglePrice.classList.toggle('show', !isBundle);
+  if (heroBundlePrice) heroBundlePrice.classList.toggle('show', isBundle);
+  syncOrderSummary();
+}
+
+function getSelectedModelName() {
+  const modelField = document.getElementById('f-model');
+  return modelField && modelField.value ? modelField.value : 'أبيض / أسود — Classic White';
+}
+
+function syncOrderSummary() {
+  const packageType = getSelectedPackageType();
+  const modelName = getSelectedModelName();
+  const size = getSelectedProductSize();
+  const summary = document.getElementById('current-order-summary');
+  const checkoutFinalPrice = document.getElementById('checkout-final-price');
+
+  if (summary) {
+    summary.innerHTML = size
+      ? `طلبك الحالي:<br>Stepora SKET - ${modelName} - مقاس ${size}`
+      : `طلبك الحالي:<br>Stepora SKET - ${modelName}<div class="order-summary-warning">من فضلك اختر المقاس من أعلى قبل تأكيد الطلب</div>`;
+  }
+  if (checkoutFinalPrice) {
+    checkoutFinalPrice.textContent = packageType === 'bundle'
+      ? 'باندل جزمتين: 2000 جنيه شامل الشحن'
+      : 'الإجمالي النهائي عند الاستلام: 1099 جنيه فقط شامل الشحن';
+  }
+}
+
+function highlightSizeSelector(message = 'من فضلك اختر المقاس من أعلى قبل تأكيد الطلب') {
+  const sizeOptions = document.getElementById('size-options-selector');
+  if (!sizeOptions) return;
+  showToast(message);
+  sizeOptions.classList.add('needs-attention');
+  sizeOptions.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  setTimeout(() => sizeOptions.classList.remove('needs-attention'), 2200);
+}
+
+function clearSizeHighlight() {
+  const sizeOptions = document.getElementById('size-options-selector');
+  if (sizeOptions) sizeOptions.classList.remove('needs-attention');
+}
+
+function showNotesField() {
+  const notesField = document.getElementById('notes-field');
+  const notesToggle = document.getElementById('notes-toggle');
+  if (!notesField) return;
+  notesField.classList.remove('notes-field-collapsed');
+  if (notesToggle) notesToggle.style.display = 'none';
+  const textarea = document.getElementById('f-notes');
+  if (textarea) textarea.focus();
+}
+
+function initializeHeroSelection() {
+  const activeModel = document.querySelector('.model-option.active');
+  if (!activeModel) return;
+  const modelField = document.getElementById('f-model');
+  const name = activeModel.dataset.name;
+  if (modelField && name) {
+    for(let o of modelField.options) { if(o.text === name) { modelField.value = o.value || o.text; break; } }
+  }
+  syncOrderSummary();
+}
+
+function scrollToHeroSelection() {
+  document.getElementById('hero-selection').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function setupStickyCheckoutText() {
+  const checkout = document.getElementById('checkout');
+  const stickyBtn = document.querySelector('.mobile-sticky-btn');
+  if (!checkout || !stickyBtn || !('IntersectionObserver' in window)) return;
+
+  const stickyObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        stickyBtn.textContent = 'أكمل الطلب';
+        stickyBtn.dataset.inCheckout = 'true';
+      } else {
+        stickyBtn.textContent = 'اطلب الآن';
+        delete stickyBtn.dataset.inCheckout;
+      }
+    });
+  }, { threshold: 0.25 });
+
+  stickyObserver.observe(checkout);
 }
 
 // ===== VIDEO =====
@@ -2347,9 +2972,14 @@ const GOOGLE_SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxHx2EiV
 async function handleSubmit(e) {
   e.preventDefault();
   const form = e.target;
-  const required = form.querySelectorAll('[required]');
+  const required = document.querySelectorAll('#checkout-form [required], [form="checkout-form"][required]');
   const btn = document.getElementById('order-now-btn');
   const originalBtnText = btn.textContent;
+  if (!getSelectedProductSize()) {
+    syncOrderSummary();
+    highlightSizeSelector('من فضلك اختر المقاس من أعلى قبل تأكيد الطلب');
+    return;
+  }
   let valid = true;
   required.forEach(f => {
     f.style.borderColor = '';
