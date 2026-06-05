@@ -240,6 +240,28 @@ a { text-decoration: none; color: inherit; }
   font-size: 14px;
   font-weight: 800;
 }
+.hero-trust-proof {
+  display: grid;
+  gap: 5px;
+  margin: -12px 0 16px;
+  padding: 10px 12px;
+  border: 1px solid rgba(232,201,122,0.22);
+  border-radius: 12px;
+  background: rgba(232,201,122,0.055);
+  color: var(--text-secondary);
+  font-size: 13px;
+  line-height: 1.55;
+}
+.hero-trust-proof strong {
+  color: var(--accent);
+  font-size: 13.5px;
+}
+.hero-decision-helper {
+  margin: -4px 0 12px;
+  color: var(--text-secondary);
+  font-size: 13.5px;
+  line-height: 1.7;
+}
 .hero-rating {
   display: flex;
   align-items: center;
@@ -1463,6 +1485,27 @@ body.lightbox-open {
     font-weight: 800;
   }
 
+  .hero-trust-proof {
+    order: 4;
+    margin: 0 0 8px;
+    padding: 8px 10px;
+    gap: 3px;
+    font-size: 12.5px;
+    text-align: center;
+  }
+
+  .hero-trust-proof strong {
+    font-size: 13px;
+  }
+
+  .hero-decision-helper {
+    order: 5;
+    margin: -2px 0 8px;
+    font-size: 12.5px;
+    line-height: 1.55;
+    text-align: center;
+  }
+
   .hero-ctas {
     gap: 8px;
     order: 6;
@@ -1488,7 +1531,7 @@ body.lightbox-open {
 
   .hero-final-price {
     order: 5;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
   }
 
   .hero-ctas .btn-primary,
@@ -1905,6 +1948,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span class="hero-price-note">شامل الشحن</span>
         </div>
         <div class="hero-bundle-price-note">الباندل: جزمتين بـ 2000 جنيه شامل الشحن</div>
+        <div class="hero-trust-proof" aria-label="ثقة العملاء">
+          <strong>طلبات حقيقية تم تأكيدها من القاهرة الكبرى ✅</strong>
+          <span>الدفع عند الاستلام — استبدال المقاس متاح — شحن لجميع المحافظات</span>
+        </div>
         <div class="hero-selection hero-selection-anchor" id="hero-selection">
           <p class="selector-model-name" id="selected-model-name">أسود / أبيض — Midnight Black</p>
           <div class="option-label">اللون / الموديل</div>
@@ -1975,6 +2022,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <p class="hero-final-price single show" id="hero-final-single">الإجمالي النهائي عند الاستلام: 1099 جنيه فقط شامل الشحن</p>
         <p class="hero-final-price bundle" id="hero-final-bundle">باندل جزمتين: 2000 جنيه شامل الشحن</p>
+        <p class="hero-decision-helper">اختار موديلك ومقاسك وسيب بياناتك، وهنتواصل معاك للتأكيد قبل الشحن.</p>
         <div class="hero-ctas">
           <a href="#checkout" id="hero-order-btn" class="btn-primary" onclick="handleHeroOrderClick(event)">اطلب الآن - دفع عند الاستلام</a>
           <button id="watch-video-btn" class="btn-secondary" onclick="scrollToVideo()">▶ شاهد الفيديو</button>
