@@ -233,6 +233,7 @@ function getSavedOrderTrackingData() {
 
 window.addEventListener('DOMContentLoaded', () => {
   const savedOrder = getSavedOrderTrackingData();
+  if (!savedOrder.order_id) return;
   const eventData = {
     product_name: savedOrder.product_name || 'Stepora Sneakers',
     currency: savedOrder.currency || 'EGP'

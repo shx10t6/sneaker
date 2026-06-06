@@ -1887,6 +1887,76 @@ body.lightbox-open {
     font-size: 24px;
   }
 }
+
+.form-confirmation {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 13px 14px;
+  border: 1px solid rgba(232,201,122,0.22);
+  border-radius: 12px;
+  background: rgba(232,201,122,0.06);
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.7;
+  cursor: pointer;
+}
+
+.form-confirmation input {
+  width: 18px;
+  height: 18px;
+  margin-top: 4px;
+  accent-color: var(--accent);
+  flex: 0 0 auto;
+}
+
+.form-submit-note {
+  color: var(--text-secondary);
+  font-size: 12.5px;
+  line-height: 1.7;
+  margin: -2px 0 0;
+}
+
+.form-inquiry-message {
+  display: none;
+  padding: 13px 14px;
+  border: 1px solid rgba(232,201,122,0.25);
+  border-radius: 12px;
+  background: rgba(232,201,122,0.08);
+  color: var(--text-primary);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.form-inquiry-message.show {
+  display: block;
+}
+
+.form-inquiry-message a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #0a0b0f;
+  font-weight: 900;
+}
+
+@media (max-width: 430px) {
+  .form-confirmation,
+  .form-inquiry-message {
+    padding: 12px;
+    font-size: 12.5px;
+    line-height: 1.65;
+  }
+
+  .form-submit-note {
+    font-size: 12px;
+  }
+}
 </style>
 </head>
 <body>
@@ -2397,14 +2467,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <label class="form-label" for="f-notes">ملاحظات إضافية</label>
             <textarea id="f-notes" name="notes" class="form-input form-textarea" placeholder="أي ملاحظات إضافية..."></textarea>
           </div>
+          <div class="form-group">
+            <label class="form-label" for="f-readiness">هل أنت جاهز لاستلام الطلب خلال 2–5 أيام؟ *</label>
+            <select id="f-readiness" name="readiness" class="form-input form-select" required>
+              <option value="">اختر الإجابة</option>
+              <option value="ready">نعم، جاهز للاستلام</option>
+              <option value="inquiry">لا، أريد الاستفسار فقط</option>
+            </select>
+          </div>
+          <label class="form-confirmation" for="f-serious-order">
+            <input type="checkbox" id="f-serious-order" name="serious_order" value="confirmed" required>
+            <span>أؤكد أنني جاد في الطلب، وأوافق على التواصل لتأكيد الشحن خلال اليوم.</span>
+          </label>
+          <div class="form-inquiry-message" id="inquiry-message" role="status" aria-live="polite"></div>
           <div class="form-price-summary">
             <span class="form-price-label">💰 المبلغ عند الاستلام</span>
             <span class="form-price-val" id="form-price-val">1099 جنيه <span class="form-price-tax">شامل الشحن</span></span>
           </div>
+          <p class="form-submit-note">سيتم التواصل معك لتأكيد الشحن قبل إرسال الطلب.</p>
           <button type="submit" id="order-now-btn" class="btn-primary" onclick="handleOrderNowClick('checkout_form')">
-            اطلب الآن — 1099 جنيه شامل الشحن
+            تأكيد الطلب والشحن
           </button>
-          <p class="form-disclaimer">بالضغط على اطلب الآن، بتوافق على الشروط والأحكام. الدفع نقداً عند الاستلام.</p>
+          <p class="form-disclaimer">بالضغط على تأكيد الطلب والشحن، بتوافق على الشروط والأحكام. الدفع نقداً عند الاستلام.</p>
         </form>
       </div>
     </div>
@@ -2476,6 +2560,11 @@ function getSelectedProductSize() {
   return selectedSize || (sizeField ? sizeField.value : '');
 }
 
+function getSelectedProductModel() {
+  const modelField = document.getElementById('f-model');
+  return modelField ? modelField.value : '';
+}
+
 function getProductEventData() {
   return {
     product_name: PRODUCT_NAME,
@@ -2504,11 +2593,26 @@ function getCheckoutRequiredFields() {
 }
 
 function getFirstEmptyCheckoutField() {
-  return getCheckoutRequiredFields().find(field => !field.value.trim());
+  return getCheckoutRequiredFields().find(field => {
+    if (field.type === 'checkbox') return !field.checked;
+    if (field.type === 'radio') {
+      return !document.querySelector(`input[name="${field.name}"]:checked`);
+    }
+    return !field.checkValidity();
+  });
 }
 
 function isCheckoutFormReady() {
-  return getSelectedProductSize() && !getFirstEmptyCheckoutField();
+  const readiness = document.getElementById('f-readiness');
+  const seriousOrder = document.getElementById('f-serious-order');
+  return getSelectedProductSize()
+    && getSelectedProductModel()
+    && getSelectedPackageType()
+    && readiness
+    && readiness.value === 'ready'
+    && seriousOrder
+    && seriousOrder.checked
+    && !getFirstEmptyCheckoutField();
 }
 
 function scrollToCheckoutForm() {
@@ -2589,7 +2693,65 @@ function setupCheckoutFormSubmit() {
   checkoutForm.addEventListener('input', pushFormStart);
   checkoutForm.addEventListener('input', pushCheckoutStart);
   checkoutForm.addEventListener('change', pushCheckoutStart);
+  checkoutForm.addEventListener('input', clearInquiryOnlyMessage);
+  checkoutForm.addEventListener('change', clearInquiryOnlyMessage);
   checkoutForm.addEventListener('submit', handleSubmit);
+}
+
+function getWhatsAppInquiryLink() {
+  return document.querySelector('a[href*="wa.me"], a[href*="api.whatsapp.com"], a[href*="whatsapp"]');
+}
+
+function showInquiryOnlyMessage() {
+  const inquiryMessage = document.getElementById('inquiry-message');
+  if (!inquiryMessage) {
+    showToast('تمام، يمكنك التواصل معنا على واتساب للاستفسار قبل تأكيد الطلب.');
+    return;
+  }
+
+  const whatsappLink = getWhatsAppInquiryLink();
+  inquiryMessage.innerHTML = 'تمام، يمكنك التواصل معنا على واتساب للاستفسار قبل تأكيد الطلب.';
+  if (whatsappLink) {
+    inquiryMessage.innerHTML += `<br><a href="${whatsappLink.href}" target="_blank" rel="noopener">التواصل على واتساب</a>`;
+  }
+  inquiryMessage.classList.add('show');
+  inquiryMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  showToast('تمام، يمكنك التواصل معنا على واتساب للاستفسار قبل تأكيد الطلب.');
+}
+
+function clearInquiryOnlyMessage() {
+  const inquiryMessage = document.getElementById('inquiry-message');
+  if (!inquiryMessage) return;
+  inquiryMessage.classList.remove('show');
+  inquiryMessage.textContent = '';
+}
+
+function markInvalidField(field) {
+  if (!field) return;
+  field.style.borderColor = '#e05555';
+  field.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  if (field.focus) field.focus();
+}
+
+const firedPurchaseOrderIds = {};
+function fireConfirmedPurchaseEvents(orderTrackingData) {
+  if (!orderTrackingData.order_id || firedPurchaseOrderIds[orderTrackingData.order_id]) return;
+  firedPurchaseOrderIds[orderTrackingData.order_id] = true;
+  pushDataLayerEvent('purchase', {
+    transaction_id: orderTrackingData.order_id,
+    value: orderTrackingData.value,
+    currency: orderTrackingData.currency,
+    items: [{
+      item_name: orderTrackingData.product_name,
+      item_variant: orderTrackingData.product_model || '',
+      quantity: orderTrackingData.package === 'bundle' ? 2 : 1,
+      price: orderTrackingData.value
+    }],
+    product_name: orderTrackingData.product_name,
+    product_size: orderTrackingData.product_size,
+    product_model: orderTrackingData.product_model || '',
+    package: orderTrackingData.package
+  });
 }
 
 function getVideoTrackingData(video) {
@@ -2927,9 +3089,7 @@ function updatePackage() {
     ? '2000 جنيه <span class="form-price-tax">شامل الشحن</span>'
     : '1099 جنيه <span class="form-price-tax">شامل الشحن</span>';
   if (totalInput) totalInput.value = isBundle ? '2000 جنيه شامل الشحن' : '1099 جنيه شامل الشحن';
-  if (orderBtn) orderBtn.textContent = isBundle
-    ? 'اطلب الباندل — 2000 جنيه شامل الشحن'
-    : 'اطلب الآن — 1099 جنيه شامل الشحن';
+  if (orderBtn) orderBtn.textContent = 'تأكيد الطلب والشحن';
   if (stickyPrice) stickyPrice.innerHTML = isBundle
     ? '2000 <span>جنيه</span><span class="mobile-sticky-tax">شامل الشحن</span>'
     : '1099 <span>جنيه</span><span class="mobile-sticky-tax">شامل الشحن</span>';
@@ -3065,16 +3225,59 @@ async function handleSubmit(e) {
   const form = e.target;
   const required = document.querySelectorAll('#checkout-form [required], [form="checkout-form"][required]');
   const btn = document.getElementById('order-now-btn');
+  const readinessField = document.getElementById('f-readiness');
+  const seriousOrderField = document.getElementById('f-serious-order');
+  const governorateField = document.getElementById('f-gov');
+  const modelField = document.getElementById('f-model');
   const originalBtnText = btn.textContent;
+  clearInquiryOnlyMessage();
   if (!getSelectedProductSize()) {
     syncOrderSummary();
-    highlightSizeSelector('من فضلك اختر المقاس من أعلى قبل تأكيد الطلب');
+    highlightSizeSelector('من فضلك اختر المقاس أولًا قبل تأكيد الطلب.');
     return;
   }
+
+  if (!getSelectedProductModel()) {
+    markInvalidField(modelField);
+    showToast('من فضلك اختر اللون / الموديل قبل تأكيد الطلب.');
+    return;
+  }
+
+  if (!getSelectedPackageType()) {
+    showToast('من فضلك اختر نوع الطلب قبل تأكيد الطلب.');
+    return;
+  }
+
+  if (!governorateField || !governorateField.value.trim()) {
+    markInvalidField(governorateField);
+    showToast('من فضلك اختر المحافظة قبل تأكيد الطلب.');
+    return;
+  }
+
+  if (!readinessField || !readinessField.value) {
+    markInvalidField(readinessField);
+    showToast('من فضلك اختر هل أنت جاهز للاستلام خلال 2–5 أيام؟');
+    return;
+  }
+
+  if (readinessField.value === 'inquiry') {
+    showInquiryOnlyMessage();
+    return;
+  }
+
+  if (!seriousOrderField || !seriousOrderField.checked) {
+    showToast('من فضلك أكد أنك جاد في الطلب قبل الإرسال.');
+    if (seriousOrderField) {
+      seriousOrderField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      seriousOrderField.focus();
+    }
+    return;
+  }
+
   let valid = true;
   required.forEach(f => {
     f.style.borderColor = '';
-    if (!f.value.trim()) {
+    if (!f.checkValidity()) {
       f.style.borderColor = '#e05555';
       valid = false;
     }
@@ -3089,6 +3292,8 @@ async function handleSubmit(e) {
     order_id: orderId,
     product_name: PRODUCT_NAME,
     product_size: data.size || getSelectedProductSize(),
+    product_model: data.model || getSelectedProductModel(),
+    package: packageType,
     value: getCurrentOrderValue(),
     currency: CURRENCY
   };
@@ -3106,6 +3311,8 @@ async function handleSubmit(e) {
     color: data.model || '',
     second_size: isBundleOrder ? (data.second_size || '') : '',
     second_color: isBundleOrder ? (data.second_model || '') : '',
+    readiness: data.readiness || '',
+    serious_order: data.serious_order === 'confirmed' ? 'confirmed' : '',
     order_value: getCurrentOrderValue(),
     currency: CURRENCY,
     status: 'new',
@@ -3131,7 +3338,7 @@ async function handleSubmit(e) {
       throw new Error(`Order storage failed with status ${response.status}`);
     }
 
-    pushDataLayerEvent('order_submit', orderTrackingData);
+    fireConfirmedPurchaseEvents(orderTrackingData);
     sessionStorage.setItem('stepora_order_tracking', JSON.stringify(orderTrackingData));
     setTimeout(redirectToThankYou, 500);
   } catch (error) {
