@@ -2514,17 +2514,11 @@ function isCheckoutFormReady() {
 }
 
 function scrollToCheckoutForm() {
+  const orderBtn = document.getElementById('order-now-btn');
   const checkoutFormWrap = document.querySelector('.checkout-form-wrap');
   const checkoutForm = document.getElementById('checkout-form');
-  const target = checkoutFormWrap || checkoutForm || document.getElementById('checkout');
-  if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-function focusFirstMissingCheckoutField() {
-  const firstEmptyField = getFirstEmptyCheckoutField();
-  if (!firstEmptyField) return;
-  firstEmptyField.style.borderColor = '#e05555';
-  setTimeout(() => firstEmptyField.focus({ preventScroll: true }), 450);
+  const target = orderBtn || checkoutFormWrap || checkoutForm || document.getElementById('checkout');
+  if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 function handleMobileStickyClick(event) {
@@ -2534,9 +2528,7 @@ function handleMobileStickyClick(event) {
   }
   handleOrderNowClick('mobile_sticky');
 
-  const stickyBtn = document.querySelector('.mobile-sticky-btn');
   const checkoutForm = document.getElementById('checkout-form');
-  const isInCheckout = stickyBtn && stickyBtn.dataset.inCheckout === 'true';
 
   if (checkoutForm && isCheckoutFormReady()) {
     if (checkoutForm.requestSubmit) checkoutForm.requestSubmit();
@@ -2545,10 +2537,6 @@ function handleMobileStickyClick(event) {
   }
 
   scrollToCheckoutForm();
-  if (isInCheckout) {
-    if (!getSelectedProductSize()) syncOrderSummary();
-    focusFirstMissingCheckoutField();
-  }
   return false;
 }
 
