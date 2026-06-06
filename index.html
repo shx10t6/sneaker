@@ -2501,6 +2501,64 @@ function handleHeroOrderClick(event) {
   highlightSizeSelector('من فضلك اختر المقاس من أعلى قبل تأكيد الطلب');
 }
 
+function getCheckoutRequiredFields() {
+  return Array.from(document.querySelectorAll('#checkout-form [required], [form="checkout-form"][required]'));
+}
+
+function getFirstEmptyCheckoutField() {
+  return getCheckoutRequiredFields().find(field => !field.value.trim());
+}
+
+function isCheckoutFormReady() {
+  return getSelectedProductSize() && !getFirstEmptyCheckoutField();
+}
+
+function scrollToCheckoutForm() {
+  const checkoutFormWrap = document.querySelector('.checkout-form-wrap');
+  const checkoutForm = document.getElementById('checkout-form');
+  const target = checkoutFormWrap || checkoutForm || document.getElementById('checkout');
+  if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function focusFirstMissingCheckoutField() {
+  const firstEmptyField = getFirstEmptyCheckoutField();
+  if (!firstEmptyField) return;
+  firstEmptyField.style.borderColor = '#e05555';
+  setTimeout(() => firstEmptyField.focus({ preventScroll: true }), 450);
+}
+
+function handleMobileStickyClick(event) {
+  if (event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+  }
+  handleOrderNowClick('mobile_sticky');
+
+  const stickyBtn = document.querySelector('.mobile-sticky-btn');
+  const checkoutForm = document.getElementById('checkout-form');
+  const isInCheckout = stickyBtn && stickyBtn.dataset.inCheckout === 'true';
+
+  if (checkoutForm && isCheckoutFormReady()) {
+    if (checkoutForm.requestSubmit) checkoutForm.requestSubmit();
+    else checkoutForm.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+    return false;
+  }
+
+  scrollToCheckoutForm();
+  if (isInCheckout) {
+    if (!getSelectedProductSize()) syncOrderSummary();
+    focusFirstMissingCheckoutField();
+  }
+  return false;
+}
+
+function setupMobileStickyCheckoutClick() {
+  const stickyBtn = document.querySelector('.mobile-sticky-btn');
+  if (!stickyBtn || stickyBtn.dataset.checkoutClickBound === 'true') return;
+  stickyBtn.dataset.checkoutClickBound = 'true';
+  stickyBtn.addEventListener('click', handleMobileStickyClick, true);
+}
+
 const firedScrollEvents = {};
 function setupScrollTracking() {
   const milestones = [25, 50, 75, 90];
@@ -2790,6 +2848,7 @@ window.addEventListener('DOMContentLoaded', () => {
   setupVideoTracking();
   setupProductLightbox();
   setupStickyCheckoutText();
+  setupMobileStickyCheckoutClick();
 });
 
 // ===== SELECTED STATE =====
